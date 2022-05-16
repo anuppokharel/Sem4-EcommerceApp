@@ -1,3 +1,12 @@
+<?php
+    require 'Session.php';
+    require 'Functions.php';
+
+    if(isset($_POST['logout'])) {
+        require 'logout.php';
+    }
+?>
+
 <html>
     <head>
         <title>DK Online Shopping in Nepal</title>
@@ -15,27 +24,29 @@
 
         <!-- Body  -->
 
-        <div class="container">
-            <div class="small-container">
-                <h2 class="title">All Products</h2>
-                <div class="row">
-                    <a href="ProductsDetail.php" target="blank" style="text-decoration: none; color: #000;">
-                        <div class="col-4">
-                            <img src="Images/product-1.jpg">
-                            <div class="adInfo">
-                                <h4>Red Printed T-Shirt</h4>
-                                <div id="adInfoInner">
-                                    <p>NRP 1,250</p>
-                                    <p id="categoryTag">Electronics</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+        <div class="profile-container">
+            <div class="user-assets">
+                <div class="user-info">
+                    <div class="personal-info">
+                        <h2>Personal Informations</h2>
+                        <p>Name - Devaka Kc</p>
+                        <p>Username - Devakakc09</p>
+                        <p>Email - devaka@gmail.com</p>
+                        <p>Phone - 9860693558</p>
+                    </div>
+                    <div class="address-info">
+                        <h2>Address Informations</h2>
+                        <p>Address - Hattidada, Pepsicola</p>
+                    </div>
                 </div>
+                <img src="images/user-1.png" alt="" id="profileImg">
             </div>
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="logout">Logout</button>
+            </form>
         </div>
 
-        <!-- Footer  -->
+        <!--- Footer --->
         
         <footer class="footer">
             <center>

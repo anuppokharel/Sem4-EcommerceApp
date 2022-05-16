@@ -10,27 +10,86 @@
     </head>
     <body>
         <div class="header">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="Index.php"><h1>DK Store</h1></a>
-                </div>
-                <div class="navigation">
-                    <nav>
-                        <ul class="menuItems">
-                            <li><a href="Index.php">Home</a></li>
-                            <li><a href="Products.php">Products</a></li>
-                            <li><a href="About.php">About</a></li>
-                            <li><a href="Contact.php">Contact</a></li>
-                            <li><a href="Account.php">Account</a></li>
-                        </ul>
-                    </nav>
-                    <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-                    <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
-                </div>
-            </div>
+            <?php require 'Navigation.php'; ?>
         </div>
 
         <!-- Body  -->
+
+            <div class="cart-container">
+                <div class="small-container">
+                    <table>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="Images/product-1.jpg">
+                                    <div>
+                                        <h4>Red Printed T-Shirt</h4>
+                                        <small>Price: NRP 50</small>
+                                        <br>
+                                        <a href="">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input type="number" value="1"></td>
+                            <td>NRP 50</td>   
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="Images/product-2.jpg">
+                                    <div>
+                                        <p>Red Printed T-Shirt</p>
+                                        <small>Price: NRP 50</small>
+                                        <br>
+                                        <a href="">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input type="number" value="1"></td>
+                            <td>NRP 50</td>   
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="Images/product-3.jpg">
+                                    <div>
+                                        <p>Red Printed T-Shirt</p>
+                                        <small>Price: NRP 50</small>
+                                        <br>
+                                        <a href="">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input type="number" value="1"></td>
+                            <td>NRP 50</td>   
+                        </tr>
+                    </table>
+                    <div class="total-price">
+                        <table style="width: 350px; margin-top: 5px;">
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>NRP 150</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery</td>
+                                <td>NRP 100</td>
+                            </tr>
+                            <tr style="border-top: 1.5px solid grey">
+                                <td>Total</td>
+                                <td>NRP 250</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="checkoutBtn">
+                        <button>Checkout</button>
+                    </div>
+                </div>
+            </div>
 
         <!--- Footer --->
         

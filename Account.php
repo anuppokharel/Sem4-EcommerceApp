@@ -1,5 +1,8 @@
 <?php
+    
+
     require 'Functions.php';
+    require 'Connection.php';
 
     // Collecting the values from form and storing it into variables by checking errors
 
@@ -11,10 +14,10 @@
         if (updateForm($_POST, 'username')) {
             $username = trim($_POST['username']);
             if (strlen($username) < 4) {
-                $error['username'] = 'Enter atleast 8 characters';
+                $error['username'] = 'Enter minimum 8 characters';
             }
         } else {
-            $error['username'] = 'Enter username';
+            $error['username'] = 'Enter your username';
         }
         // Collecting password from form
 
@@ -27,19 +30,9 @@
 
         if (count($error) == 0) {
             try {
-                // Database connection
-
-                $connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
-                
-                // Decrypting md5 type password and storing it into variable
-
                 $encpass = md5($password);
 
-                // SQL Query 
-
                 $sql = "select * from tbl_users where username = '$username' and password = '$encpass' and status = 1";
-                
-                // Query execution and storing query onto variable
 
                 $result = mysqli_query($connection, $sql);
 
@@ -69,9 +62,9 @@
                     }
                     // Redirect to defined page
                 
-				    header('location: dashboard_book.php');
+				    header('location: Index.php');
                 } else {
-                    $error['login'] = 'No user found';
+                    $error['login'] = 'Please register to be a member';
                 }
 				
             } catch (Exception $e) {
@@ -95,24 +88,7 @@
     </head>
     <body>
         <div class="header">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="Index.php"><h1>DK Store</h1></a>
-                </div>
-                <div class="navigation">
-                    <nav>
-                        <ul class="menuItems">
-                            <li><a href="Index.php">Home</a></li>
-                            <li><a href="Products.php">Products</a></li>
-                            <li><a href="About.php">About</a></li>
-                            <li><a href="Contact.php">Contact</a></li>
-                            <li><a href="Account.php">Account</a></li>
-                        </ul>
-                    </nav>
-                    <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-                    <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
-                </div>
-            </div>
+            <?php require 'Navigation.php' ?>
         </div>
 
         <!-- Body  -->
@@ -139,6 +115,7 @@
                     <!-- Error message -->
 
                     <br><?php echo displayError($error, 'login'); ?>
+                    <?php echo displayError($error, 'database'); ?>
 
                     <!-- Logout message -->
                 
@@ -150,7 +127,7 @@
                         }
                     ?>
 
-                    <br><span>Not a member? <a href="register_book.php">Register</a> </span>
+                    <br><span>Not a member? <a href="Register.php">Register</a> </span>
                 </form>
             </div>
         </div>

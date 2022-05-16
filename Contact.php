@@ -1,27 +1,22 @@
 <?php
     require 'Functions.php';
+    require 'Connection.php';
 
     // Setting variables empty string & error empty array.
 
     $error = [];
-    $name = $email = $message = $password = '';
+    $name = $email = $message = '';
 
     // Checking if the contact button is pressed and if it is pressed storing the form value onto variables.
 
-    if(isset($_POST['contact'])) {
-        if(verifyForm($_POST, 'name')) {
+    if(isset($_POST['contactBtn'])) {
+        if(updateForm($_POST, 'name')) {
             $name = $_POST['name'];
-
-            // Checkin for regular expression match.
-
-            if(!preg_match ("/^[a-z A-Z]+$/", $name)) {
-                $error['name'] = 'Name must only contain characters and space';
-            }
         } else {
             $error['name'] = 'Enter your name';
         }
 
-        if(verifyForm($_POST, 'email')) {
+        if(updateForm($_POST, 'email')) {
             $email = $_POST['email'];
 
             // Validating email address.
@@ -33,37 +28,25 @@
             $error['email'] = 'Enter your email address';
         }
 
-        if(verifyForm($_POST, 'message')) {
+        if(updateForm($_POST, 'message')) {
             $message = $_POST['message'];
         } else {
             $error['message'] = 'Enter your message';
-        }
-
-        if(verifyForm($_POST, 'password')) {
-
-            // Encrypting password using md5 format.
-
-            $password = md5($_POST['password']);
-        } else {
-            $error['password'] = 'Enter your password';
         }
 
         // Inititalize the database queries
 
         if(count($error) == 0) {
             try {
-                // Database connection
-
-                $connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
                 // Insert into database
 
-                $sql = "insert into tbl_contact(name, email, message, password) values('$name', '$email', '$message', '$password');";
+                $sql = "insert into tbl_contact(name, email, message) values('$name', '$email', '$message');";
 
                 // Query execution
 
                 if(mysqli_query($connection, $sql)) {
-                    $successMsg = 'You have successfully placed a new contact message.';
+                    $successMsg = 'You have successfully placed<br>
+                    a new contact message.';
                 }
             } catch(Exception $e) {
                 $error['contact'] = $e -> getMessage();
@@ -84,24 +67,7 @@
     </head>
     <body>
         <div class="header">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="Index.php"><h1>DK Store</h1></a>
-                </div>
-                <div class="navigation">
-                    <nav>
-                        <ul class="menuItems">
-                            <li><a href="Index.php">Home</a></li>
-                            <li><a href="Products.php">Products</a></li>
-                            <li><a href="About.php">About</a></li>
-                            <li><a href="Contact.php">Contact</a></li>
-                            <li><a href="Account.php">Account</a></li>
-                        </ul>
-                    </nav>
-                    <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-                    <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
-                </div>
-            </div>
+            <?php require 'Navigation.php'; ?>
         </div>
 
         <!-- Body  -->
@@ -110,28 +76,24 @@
             <div class="contact-container">
                 <h1 style="text-align: center">Contact</h1>
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-                    <div class="items name">
+                    <div>
                         <label for="name">name</label><br>
-                        <input type="text" name="name" id="name">
-                    </div><br>
-                    <?php echo displayError($error, 'name'); ?>
-                    <div class="items email">
+                        <input type="text" name="name" id="name" style="height: 30px; width: 100%">
+                    </div>
+                    <?php echo displayError($error, 'name'); ?><br>
+                    <div>
                         <label for="email">email</label><br>
-                        <input type="email" name="email" id="email">
-                    </div><br>
-                    <?php echo displayError($error, 'email'); ?>
-                    <div class="items message">
+                        <input type="email" name="email" id="email" style="height: 30px; width: 100%">
+                    </div>
+                    <?php echo displayError($error, 'email'); ?><br>
+                    <div>
                         <label for="message">Message</label><br>
-                        <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                    </div><br>
-                    <div class="items password">
-                        <label for="password">password</label><br>
-                        <input type="password" name="password" id="password">
-                    </div><br>
-                    <?php echo displayError($error, 'password'); ?>
-                    <div class="items btnSubmit">
-                        <br><button type="submit" name="contact">Contact</button>
-                    </div><br>
+                        <textarea name="message" id="message" cols="50" rows="5"></textarea>
+                    </div>
+                    <?php echo displayError($error, 'message'); ?><br>
+                    <div style="width: 100%; text-align: center;">
+                        <button type="submit" name="contactBtn">Submit</button>
+                    </div>
                     <?php if(isset($successMsg)) { ?>
                         <b><span class="success"><?php echo $successMsg; ?></span></b>
                     <?php } ?>

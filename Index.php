@@ -10,25 +10,7 @@
     </head>
     <body>
         <div class="header">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="Index.php"><h1>DK Store</h1></a>
-                </div>
-                <div class="navigation">
-                    <nav>
-                        <ul class="menuItems">
-                            <li><a href="Index.php">Home</a></li>
-                            <li><a href="Products.php">Products</a></li>
-                            <li><a href="About.php">About</a></li>
-                            <li><a href="Contact.php">Contact</a></li>
-                            <li><a href="Account.php">Account</a></li>
-                        </ul>
-                    </nav>
-                    <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-                    <p id="myCartNumber">0</p>
-                    <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
-                </div>
-            </div>
+            <?php require 'Navigation.php'; ?>
         </div>
 
         <!-- Body  -->
@@ -39,144 +21,38 @@
 
                 <h2 class="title">Featured Products</h2>
                 <div class="row">
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
+                    <a href="ProductsDetail.php" target="blank" style="text-decoration: none; color: #000;">
+                        <div class="col-4">
+                            <img src="Images/product-1.jpg">
+                            <div class="adInfo">
+                                <!-- Max character 40 words  -->
+                                <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
+                                <div id="adInfoInner">
+                                    <p>NRP 1,250</p>
+                                    <p id="categoryTag">Electronics</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <img src="Images/product-1.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 
                 <!--- Latest Product -->
 
                 <h2 class="title">Latest Products</h2>
                 <div class="row">
-                    <div class="col-4">
-                        <img src="Images/product-5.jpg">
-                        <div class="adInfo">
-                            <!-- Max character 40 words  -->
-                            <h4>Digicom Usb Wifi Adapter</h4>
-                            <div id="adInfoInner">
-                                <p>NRP 1,250</p>
-                                <p id="categoryTag">Electronics</p>
+                    <a href="ProductDetails.php" target="blank" style="text-decoration: none; color: #000;">
+                        <div class="col-4">
+                            <img src="Images/product-5.jpg">
+                            <div class="adInfo">
+                                <!-- Max character 40 words  -->
+                                <h4>Digicom Usb Wifi Adapter</h4>
+                                <div id="adInfoInner">
+                                    <p>NRP 1,250</p>
+                                    <p id="categoryTag">Electronics</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <a/>
                 </div>
             </div>
         </div>

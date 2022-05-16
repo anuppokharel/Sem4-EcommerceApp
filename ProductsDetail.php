@@ -10,27 +10,22 @@
     </head>
     <body>
         <div class="header">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="Index.php"><h1>DK Store</h1></a>
-                </div>
-                <div class="navigation">
-                    <nav>
-                        <ul class="menuItems">
-                            <li><a href="Index.php">Home</a></li>
-                            <li><a href="Products.php">Products</a></li>
-                            <li><a href="About.php">About</a></li>
-                            <li><a href="Contact.php">Contact</a></li>
-                            <li><a href="Account.php">Account</a></li>
-                        </ul>
-                    </nav>
-                    <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-                    <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
-                </div>
-            </div>
+            <?php require 'Navigation.php'; ?>
         </div>
 
         <!-- Body  -->
+
+        <div class="product-container">
+            <div class="small-container">
+                <div class="col-2">
+                    <img src="images/product-1.jpg" height="250px" width="500px" id="productImg">
+                    <p id="categoryTag">Electronics</p>
+                    <h1>Red printed T-Shirt by HRX</h1>
+                    <p>NRP 1,250</p>
+                    <button><a href="">Add To Cart</a></button>
+                </div>
+            </div>
+        </div>
 
         <!--- Footer --->
         

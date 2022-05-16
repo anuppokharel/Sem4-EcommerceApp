@@ -10,24 +10,7 @@
     </head>
     <body>
         <div class="header">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="Index.php"><h1>DK Store</h1></a>
-                </div>
-                <div class="navigation">
-                    <nav>
-                        <ul class="menuItems">
-                            <li><a href="Index.php">Home</a></li>
-                            <li><a href="Products.php">Products</a></li>
-                            <li><a href="About.php">About</a></li>
-                            <li><a href="Contact.php">Contact</a></li>
-                            <li><a href="Account.php">Account</a></li>
-                        </ul>
-                    </nav>
-                    <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-                    <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
-                </div>
-            </div>
+            <?php require 'Navigation.php'; ?>
         </div>
 
         <!-- Body  -->
@@ -50,13 +33,10 @@
                         It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                         It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
                         desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <div class="btn">
-                            <a href="">Read More</a>
-                        </div>
                         <div class="about_social">
-                            <a href="https://www.facebook.com/anup.pokharel.703" target="blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/anup.pokharel/" target="blank"><i class="fab fa-instagram"></i></a>
-                            <a href="https://twitter.com/anup_pokharel" target="blank"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/" target="blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/" target="blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://twitter.com/" target="blank"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>

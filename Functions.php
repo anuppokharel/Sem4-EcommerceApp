@@ -1,8 +1,10 @@
 <?php
+    error_reporting(0);
+
     function displayError($error, $index) {
         $msg = '';
         if(isset($error[$index])) {
-            $msg = '<b><span class="error">' . $error[$index] . '</span></b>';
+            $msg = '<span class="error">' . $error[$index] . '</span>';
         }
         return $msg;
     }
