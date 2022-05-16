@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+/* Header Styles  */
+
+.navbar {
+    background-color: #ffd6d6;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    margin: 0 0 0 50px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: grey;
+}
+
+.logo a h1 {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuItems {
+    display: flex;
+    list-style-type: none;
+}
+
+.menuItems li {
+    margin: 0 7.5px;
+}
+
+.menuItems li a {
+    color: grey;
+    text-decoration: none;
+}
+
+.menu-icon {
+    display: block;
+    cursor: pointer;
+}
+
+.myCart {
+    display: block;
+    color: grey;
+    font-size: 23px;
+    margin: 1.5px 5px 0 15px;
+}
+
+#myCartNumber {
+    background-color: grey;
+    color: #fff;
+    margin: 0 50px 0 0;
+    padding: 2.5px 10px;
+    border-radius: 10px;
+}
+
+.menu-icon {
+    display: none;
+    margin: 1.3px 50px 0 0;
+    color: grey;
+    font-size: 24px;
+}
+
+/* Body Styles  */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.small-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0;
+    /* border: 1px solid #000; */
+    width: 90%;
+}
+
+.small-container .title {
+    color: grey;
+    font-size: 24px;
+    margin: 25px 0 50px 0;
+    position: relative;
+}
+
+.small-container .title::after {
+    content: '';
+    position: absolute;
+    background-color: #ffd6d6;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    bottom: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.small-container .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.small-container .row .col-4 {
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.23);
+}
+
+.col-4 {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    height: 250px;
+    width: 250px;
+    margin: 10px;
+}
+
+.col-4 img {
+    margin: 2.5px 0 0 0;
+    height: 175px;
+    width: 245px;
+    border-radius: 10px;
+}
+
+.adInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 65px;
+    margin: 2.5px 0 0 0;
+    width: 90%;
+}
+
+#adInfoInner {
+    display: flex;
+    justify-content: space-between;
+}
+
+#categoryTag {
+    color: grey;
+    cursor: pointer;
+}
+
+#categoryTag:hover {
+    color: #000;
+}
+
+.about-container {
+    width: 75%;
+    display: block;
+    margin: auto;
+}
+
+.content_section .about_title {
+    color: grey;
+    padding-top: 10%;
+    text-transform: uppercase;
+    font-size: 25px;
+}
+
+.content_section .about_content p {
+    margin-top: 10px;
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+.about_content .btn a {
+    color: #fff;
+}
+
+.content_section .about_social {
+    padding-bottom: 10%;
+}
+
+.content_section .about_social i {
+    color: grey;
+    font-size: 30px;
+    padding: 7.5px;
+}
+
+.content_section .about_social i:hover {
+    color: #000;
+}
+
+.content_section .about_content .btn {
+    text-align: center;
+}
+
+.account-container {
+    text-align: center;
+    border-radius: 10px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.23);
+}
+
+.contact-container {
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.23);
+
+}
+
+.account-container form div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.account-container form div input {
+    margin-left: 7.5px;
+}
+
+.account-container h1 {
+    margin-bottom: 10px;
+}
+
+.contact-container h1 {
+    margin-bottom: 10px;
+}
+
+.account-container input:focus {
+    outline: none;
+}
+
+/* Footer Styles  */
+
+.footer {
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    margin-top: 30px;
+    height: 10vh;
+}
+
+/* Others  */
+
+label {
+    text-transform: capitalize;
+}
+
+/* Media query  */
+
+@media screen and (max-width: 800px) {
+    .menu-icon {
+        display: block;
+    }
+
+    #myCartNumber {
+        margin: 0 10px 0 0;
+    }
+
+    .menuItems {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 60px;
+        text-align: end;
+        left: 0;
+        background: #333;
+        width: 100%;
+        overflow: hidden;
+        z-index: 100;
+        transition: max-height 0.5s;
+    }
+
+    .menuItems li {
+        display: block;
+        margin-right: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .menuItems li a {
+        color: #fff;
+    }
+}
