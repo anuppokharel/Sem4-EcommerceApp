@@ -92,7 +92,10 @@ body {
 }
 
 .product-container,
-.profile-container {
+.profile-container,
+.dashboard-container,
+.status-container {
+    /* border: 1px solid #000; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,7 +109,6 @@ body {
     justify-content: center;
     align-items: center;
     margin: 25px 0;
-    /* border: 1px solid #000; */
     width: 90%;
 }
 
@@ -237,7 +239,7 @@ body {
     padding: 25px;
     border-radius: 10px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.23);
-
+    margin: 50px 0;
 }
 
 .account-container form div {
@@ -393,6 +395,24 @@ body {
     width: 250px;
 }
 
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.content .total {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2.5px solid grey;
+    height: 150px;
+    width: 300px;
+    margin: 15px;
+}
+
+
 /* Footer Styles  */
 
 .footer {
@@ -409,6 +429,14 @@ body {
 
 label {
     text-transform: capitalize;
+}
+
+input {
+    padding: 2.5px;
+}
+
+td {
+    padding: 0 5px;
 }
 
 a {
@@ -447,6 +475,11 @@ button:focus {
 
 button:active {
     transform: scale(0.98);
+}
+
+#remember {
+    display: flex;
+    justify-content: center;
 }
 
 /* Media query  */

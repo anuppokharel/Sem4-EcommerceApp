@@ -1,9 +1,24 @@
 <?php
     require 'Session.php';
     require 'Functions.php';
+    require 'Connection.php';
 
-    if(isset($_POST['logout'])) {
-        require 'logout.php';
+    $username = $_SESSION['username'];
+
+    try {
+        $sql = "select * from tbl_users where username = '$username'";
+
+        // Query execution and return result object 
+
+        $result = mysqli_query($connection, $sql);
+
+        // Check no of rows
+
+        if(mysqli_num_rows($result) > 0) {
+            $user = mysqli_fetch_assoc($result);
+        }
+    } catch(Exception $e) {
+        $error['database'] = $e -> getMessage();
     }
 ?>
 
@@ -29,21 +44,19 @@
                 <div class="user-info">
                     <div class="personal-info">
                         <h2>Personal Informations</h2>
-                        <p>Name - Devaka Kc</p>
-                        <p>Username - Devakakc09</p>
-                        <p>Email - devaka@gmail.com</p>
-                        <p>Phone - 9860693558</p>
+                        <p>Name - <?php echo $user['name']; ?></p>
+                        <p>Username - <?php echo $user['username']; ?></p>
+                        <p>Email - <?php echo $user['email']; ?></p>
+                        <p>Phone - <?php echo $user['phone']; ?></p>
                     </div>
                     <div class="address-info">
                         <h2>Address Informations</h2>
-                        <p>Address - Hattidada, Pepsicola</p>
+                        <p>Address - <?php echo $user['address']; ?></p>
                     </div>
                 </div>
-                <img src="images/user-1.png" alt="" id="profileImg">
+                <img src="images/profile-img/<?php echo $user['image']; ?>" alt="" id="profileImg" style="object-fit: cover;">
             </div>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" name="logout">Logout</button>
-            </form>
+                <button><a href="Logout.php">Logout</a></button>
         </div>
 
         <!--- Footer --->

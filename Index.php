@@ -1,3 +1,31 @@
+<?php
+    require_once 'Functions.php';
+    require_once 'Connection.php';
+
+    $error = [];
+    $products = [];
+    $categories = [];
+
+    try {
+        $sql = "select tbl_products.*, tbl_categories.category_name from tbl_categories as tbl_categories join tbl_products on tbl_products.category_id = tbl_categories.id";
+
+        // Query execution and return result object 
+
+        $result = mysqli_query($connection, $sql);
+
+        // Check no of rows
+
+        if(mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                array_push($products, $row);
+            }
+        }
+    } catch(Exception $e) {
+        $error['database'] = $e -> getMessage();
+    }
+
+?>
+
 <html>
     <head>
         <title>DK Online Shopping in Nepal</title>
@@ -19,26 +47,28 @@
             <div class="small-container">
                 <!--- Featured Products --->
 
-                <h2 class="title">Featured Products</h2>
+                <h2 class="title">Latest Products</h2>
                 <div class="row">
-                    <a href="ProductsDetail.php" target="blank" style="text-decoration: none; color: #000;">
-                        <div class="col-4">
-                            <img src="Images/product-1.jpg">
-                            <div class="adInfo">
-                                <!-- Max character 40 words  -->
-                                <h4>Grey Floral Printed King Size Bedsheet With 2</h4>
-                                <div id="adInfoInner">
-                                    <p>NRP 1,250</p>
-                                    <p id="categoryTag">Electronics</p>
+                    <?php foreach($products as $key => $product) { ?>
+                        <a href="ProductsDetail.php?id=<?php echo $product['id']; ?>" target="blank" style="text-decoration: none; color: #000;">
+                            <div class="col-4">
+                                <img src="images/product-img/<?php echo $product['image']; ?>">
+                                <div class="adInfo">
+                                    <!-- Max character 40 words  -->
+                                    <h4><?php echo $product['title']; ?></h4>
+                                    <div id="adInfoInner">
+                                        <p>NRP <?php echo $product['price']; ?></p>
+                                        <p id="categoryTag"><?php echo $product['category_name']; ?></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    <?php } ?>
                 </div>
                 
                 <!--- Latest Product -->
 
-                <h2 class="title">Latest Products</h2>
+                <h2 class="title">Featured Products</h2>
                 <div class="row">
                     <a href="ProductDetails.php" target="blank" style="text-decoration: none; color: #000;">
                         <div class="col-4">

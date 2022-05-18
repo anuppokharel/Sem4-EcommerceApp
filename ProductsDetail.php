@@ -1,3 +1,26 @@
+<?php
+    session_start();
+
+    require 'Functions.php';
+    require 'Connection.php';
+
+    $products = [];
+    $productId = $_GET['id'];
+
+    try {
+        $sql = "select tbl_products.*,tbl_categories.category_name from tbl_products join tbl_categories on tbl_products.category_id = tbl_categories.id where tbl_products.id = $productId";
+
+        $query = mysqli_query($connection, $sql);
+
+        if (mysqli_num_rows($query) == 1) {
+            $products = mysqli_fetch_assoc($query);
+        }
+    } catch (Exception $e) {
+        $error = $e -> getMessage();
+    }
+
+?>
+
 <html>
     <head>
         <title>DK Online Shopping in Nepal</title>
@@ -18,11 +41,11 @@
         <div class="product-container">
             <div class="small-container">
                 <div class="col-2">
-                    <img src="images/product-1.jpg" height="250px" width="500px" id="productImg">
-                    <p id="categoryTag">Electronics</p>
-                    <h1>Red printed T-Shirt by HRX</h1>
-                    <p>NRP 1,250</p>
-                    <button><a href="">Add To Cart</a></button>
+                    <img src="images/product-img/<?php echo $products['image']; ?>" height="250px" width="500px" id="productImg" style="object-fit: contain;">
+                    <p id="categoryTag"><?php echo $products['category_name']; ?></p>
+                    <h1><?php echo $products['title']; ?></h1>
+                    <p>NRP <?php echo $products['price']; ?></p>
+                    <button><a href="My Cart.php">Add To Cart</a></button>
                 </div>
             </div>
         </div>

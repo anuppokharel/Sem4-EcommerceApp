@@ -1,19 +1,40 @@
 <?php
-    require 'Functions.php';
-    require 'Connection.php';
+    // Including all the important pages
+
+    require_once 'sessionAdmin.php';
+    require_once '../Functions.php';
+    require_once '../Connection.php';
 
     // Setting variables empty string & error empty array.
 
     $error = [];
-    $name = $email = $message = '';
+    $name = $email = $password = '';
 
-    // Checking if the contact button is pressed and if it is pressed storing the form value onto variables.
+    // Checking if the admin button is pressed and if it is pressed storing the form value onto variables.
 
-    if(isset($_POST['contactBtn'])) {
+    if(isset($_POST['addAdmin'])) {
         if(updateForm($_POST, 'name')) {
             $name = $_POST['name'];
+
+            // Checkin for regular expression match.
+
+            if(!preg_match ("/^[a-z A-Z]+$/", $name)) {
+                $error['name'] = 'Name must only contain characters and space';
+            }
         } else {
             $error['name'] = 'Enter your name';
+        }
+        
+        if(updateForm($_POST, 'username')) {
+            $username = $_POST['username'];
+
+            // Checkin for regular expression match.
+
+            if(!preg_match ("/^[a-zA-Z0-9]+$/", $username)) {
+                $error['username'] = 'username must only contain characters and space';
+            }
+        } else {
+            $error['username'] = 'Enter your username';
         }
 
         if(updateForm($_POST, 'email')) {
@@ -28,28 +49,28 @@
             $error['email'] = 'Enter your email address';
         }
 
-        if(updateForm($_POST, 'message')) {
-            $message = $_POST['message'];
+        if(updateForm($_POST, 'password')) {
+
+            // Encrypting password using md5 format.
+
+            $password = md5($_POST['password']);
         } else {
-            $error['message'] = 'Enter your message';
+            $error['password'] = 'Enter your password';
         }
 
         // Inititalize the database queries
 
         if(count($error) == 0) {
             try {
-                // Insert into database
-
-                $sql = "insert into tbl_contacts(name, email, message) values('$name', '$email', '$message');";
+                $sql = "insert into tbl_admins(name, email, password) values('$name', '$email','$password');";
 
                 // Query execution
 
                 if(mysqli_query($connection, $sql)) {
-                    $successMsg = 'You have successfully placed<br>
-                    a new contact message.';
+                    $successMsg = 'You have successfully added a new admin.';
                 }
             } catch(Exception $e) {
-                $error['contact'] = $e -> getMessage();
+                $error['admin'] = $e -> getMessage();
             }
         }
     }
@@ -57,8 +78,8 @@
 
 <html>
     <head>
-        <title>DK Online Shopping in Nepal</title>
-        <link rel="stylesheet" href="Style.css">
+        <title>Admin Panel - DK Store</title>
+        <link rel="stylesheet" href="../Style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
@@ -67,14 +88,14 @@
     </head>
     <body>
         <div class="header">
-            <?php require 'Navigation.php'; ?>
+            <?php require 'AdminNavigation.php'; ?>
         </div>
 
         <!-- Body  -->
 
         <div class="container">
             <div class="contact-container">
-                <h1 style="text-align: center">Contact</h1>
+                <h1 style="text-align: center">Add Admin</h1>
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                     <div>
                         <label for="name">name</label><br>
@@ -82,22 +103,27 @@
                     </div>
                     <?php echo displayError($error, 'name'); ?><br>
                     <div>
+                        <label for="username">username</label><br>
+                        <input type="text" name="username" id="username" style="height: 30px; width: 100%">
+                    </div>
+                    <?php echo displayError($error, 'username'); ?><br>
+                    <div>
                         <label for="email">email</label><br>
                         <input type="email" name="email" id="email" style="height: 30px; width: 100%">
                     </div>
                     <?php echo displayError($error, 'email'); ?><br>
                     <div>
-                        <label for="message">Message</label><br>
-                        <textarea name="message" id="message" cols="50" rows="5"></textarea>
+                        <label for="password">password</label><br>
+                        <input type="password" name="password" id="password" style="height: 30px; width: 100%">
                     </div>
-                    <?php echo displayError($error, 'message'); ?><br>
-                    <div style="width: 100%; text-align: center;">
-                        <button type="submit" name="contactBtn">Submit</button>
+                    <?php echo displayError($error, 'password'); ?><br>
+                    <div>
+                        <button type="submit" name="addAdmin">Add Admin</button>
                     </div>
                     <?php if(isset($successMsg)) { ?>
-                        <b><span class="success"><?php echo $successMsg; ?></span></b>
+                        <span class="success"><?php echo $successMsg; ?></span>
                     <?php } ?>
-                    <b><?php echo displayError($error, 'contact'); ?></b>
+                    <?php echo displayError($error, 'admin'); ?>
                 </form>
             </div>
         </div>
@@ -114,18 +140,16 @@
         <!--- JS for toggle menu --->
 
         <script>
-            var MenuItems = document.getElementById("menuItems");
-
-            MenuItems.style.maxHeight = "0px";
+            >
 
             function menutoggle(){
-                if(MenuItems.style.maxHeight == "0px")
+            >
                 {
-                    MenuItems.style.maxHeight = "200px";
+    >
                 }
                 else
                 {
-                    MenuItems.style.maxHeight = "0px";
+    >
                 }
             }
         </script>

@@ -1,6 +1,6 @@
 <?php
-    require 'Functions.php';
-    require 'Connection.php';
+    require '../Functions.php';
+    require '../Connection.php';
 
     // Collecting the values from form and storing it into variables by checking errors
 
@@ -30,17 +30,13 @@
             try {
                 $encpass = md5($password);
 
-                $sql = "select * from tbl_users where username = '$username' and password = '$encpass' and status = 1";
+                $sql = "select * from tbl_admins where username = '$username' and password = '$encpass' and status = 1";
 
                 $result = mysqli_query($connection, $sql);
 
-                // Checking if there is data in the variable or not
-
                 if (mysqli_num_rows($result) == 1 ) {
-                    // Fetch user records using fetch and store the data into variable
-                    // assoc -> Associative array
 
-                    $user = mysqli_fetch_assoc($result);
+                    $admin = mysqli_fetch_assoc($result);
 
                     // Initialize session
 
@@ -49,7 +45,7 @@
                     // Store extra data into session
 
     				$_SESSION['username'] = $username;
-                    $_SESSION['name'] = $user['name'];
+                    $_SESSION['name'] = $admin['name'];
 	    
                     // If check remember is selected store the data into cookie
 		    
@@ -60,9 +56,9 @@
                     }
                     // Redirect to defined page
                 
-				    header('location: Index.php');
+				    header('location: Dashboard.php');
                 } else {
-                    $error['login'] = 'Please register to be a member';
+                    $error['login'] = 'Admin not found';
                 }
 				
             } catch (Exception $e) {
@@ -77,7 +73,7 @@
 <html>
     <head>
         <title>DK Online Shopping in Nepal</title>
-        <link rel="stylesheet" href="Style.css">
+        <link rel="stylesheet" href="../Style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
@@ -86,14 +82,14 @@
     </head>
     <body>
         <div class="header">
-            <?php require 'Navigation.php' ?>
+            <?php require '../Navigation.php' ?>
         </div>
 
         <!-- Body  -->
 
         <div class="container">
             <div class="account-container">
-                <h1>Login</h1>
+                <h1>Admin Login</h1>
                 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
                     <div>
                         <label for="username">username</label>
@@ -107,11 +103,8 @@
                     </div>
                     <?php echo displayError($error, 'password'); ?><br>
 
-                    <div id="remember">
-                        <input type="checkbox" name="remember" value="remember">
-                        <label for="remember" style="margin-left: 7.5px;">Remember me</label>
-                    </div>
-                    <br><button type="submit" name="login" style="margin: 0;">Login</button>
+                    <input type="checkbox" name="remember" value="remember"> Remember me
+                    <br><button type="submit" name="login">Login</button>
 
                     <!-- Error message -->
 
@@ -128,8 +121,7 @@
                         }
                     ?>
 
-                    <br><span>Not a member? <a href="Register.php">Register</a> </span>
-                    <br><span>Are you admin? <a href="admin/Admin.php">Click here</a> </span>
+                    <br><span>Not Admin? <a href="../Account.php">User Login</a> </span>
                 </form>
             </div>
         </div>

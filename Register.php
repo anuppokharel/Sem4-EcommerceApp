@@ -57,12 +57,32 @@
         } else {
             $error['gender'] = "Select your Gender.";
         }
+
+        if(isset($_FILES['image'])) {
+            if($_FILES['image']['error'] == 0) {
+                if($_FILES['image']['size'] <= 10240000) {
+                    $imageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                    if(in_array($_FILES['image']['type'], $imageTypes)) {
+                        $image = uniqid() . '_' . $_FILES['image']['name'];
+                        move_uploaded_file($_FILES['image']['tmp_name'], 'images/profile-img/' . $image);
+                    } else {
+                        $error['image'] = 'Upload valid image type';
+                    }
+                } else {
+                    $error['image'] = 'Upload less then 512kb image';
+                }   
+            } else {
+                $error['image'] = 'Upload valid image';
+            }
+        } else {
+            $error['image'] = 'Upload image';
+        }
         
         // If there is no error then initialize process to store the data from form to database table
 
         if(count($error) == 0) {
             try {
-                $sql = "insert into tbl_users (name, username, email, password, address, phone, gender) values ('$name', '$username', '$email', '$password', '$address', '$phone', '$gender');";
+                $sql = "insert into tbl_users (name, username, email, password, address, phone, gender, image) values ('$name', '$username', '$email', '$password', '$address', '$phone', '$gender', '$image');";
 
                 // Query execution
 
@@ -98,7 +118,7 @@
         <div class="container">
             <div class="account-container">
                 <h1>Register</h1>
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                     <div>
                         <label for="name">Name</label>
                         <input type="text" name="name" value="<?php echo $name; ?>">
@@ -142,6 +162,12 @@
                         <input type="radio" name="gender" value="Others" <?php if($gender == "Others") { echo "checked";} ?>>Others
                     </div>
                     <?php echo displayError($error, 'gender'); ?><br>
+
+                    <div style="display:flex; flex-direction:column;">
+                        <label for="image" style="margin: 0 0 10px -185px">Profile Image</label>
+                        <input type="file" name="image" id="image">
+                    </div>
+                    <?php echo displayError($error, 'image'); ?><br>
 
                     <button type="submit" name="submit">Register</button>
 
