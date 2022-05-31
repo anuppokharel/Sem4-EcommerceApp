@@ -1,7 +1,7 @@
 <?php
     require 'Session.php';
 
-    if (isset($_GET['tokenCart'])) {
+    if (isset($_GET['tokenCart']) && !($_GET['tokenCart'] === '')) {
         $total = $_GET['tokenCart'];
     } else {
         header('location: Index.php');
@@ -13,9 +13,6 @@
     <head>
         <title>DK Online Shopping in Nepal</title>
         <link rel="stylesheet" href="Style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>

@@ -50,10 +50,17 @@
                                 <td>
                                     <div class="cart-info">
                                         <?php
-                                            $productID = $cartItem['product_id'];
-                                            $sql = "select * from tbl_products where id = $productID";
-                                            $query = mysqli_query($connection, $sql);
-                                            $product = mysqli_fetch_assoc($query);
+                                            if (!$cartItem['product_id'] == '') {
+                                                $productID = $cartItem['product_id'];
+                                                $sql = "select * from tbl_products where id = $productID";
+                                                $query = mysqli_query($connection, $sql);
+                                                $product = mysqli_fetch_assoc($query);
+                                            } else {
+                                                $productID = $cartItem['featured_product_id'];
+                                                $sql = "select * from tbl_featured_products where id = $productID";
+                                                $query = mysqli_query($connection, $sql);
+                                                $product = mysqli_fetch_assoc($query);
+                                            }
                                         ?>
                                         <img src="images/product-img/<?php echo $product['image']; ?>">
                                         <div>
@@ -78,11 +85,28 @@
                             </tr>
                             <tr>
                                 <td>Delivery</td>
-                                <td>NRP 100</td>
+                                <td>
+                                    <?php
+                                    if (isset ($productPrices) && count($productPrices) > 0) {
+                                        echo 'NRP ' . 100;
+                                    } else {
+                                        echo 'NRP ' . 0;
+                                    }
+                                    ?>
+                                
+                                </td>
                             </tr>
                             <tr style="border-top: 1.5px solid grey">
                                 <td>Total</td>
-                                <td>NRP <?php echo $total = array_sum($productPrices) + 100; ?></td>
+                                <td>
+                                    <?php
+                                    if (isset ($productPrices) && count($productPrices) > 0) {
+                                        echo 'NRP ' . $total = array_sum($productPrices) + 100;
+                                    } else {
+                                        echo 'NRP ' . 0;
+                                    }
+                                    ?>
+                                </td>
                             </tr>
                         </table>
                     </div>

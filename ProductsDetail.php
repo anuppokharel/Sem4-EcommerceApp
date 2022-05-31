@@ -1,4 +1,4 @@
-<?php
+ <?php
     session_start();
 
     require 'Session.php';
@@ -8,27 +8,43 @@
     $product = [];
     $productId = $_GET['id'];
 
-    try {
-        $sql = "select tbl_products.*,tbl_categories.category_name from tbl_products join tbl_categories on tbl_products.category_id = tbl_categories.id where tbl_products.id = $productId";
-
-        $query = mysqli_query($connection, $sql);
-
-        if (mysqli_num_rows($query) == 1) {
-            $product = mysqli_fetch_assoc($query);
-        }
-    } catch (Exception $e) {
-        $error = $e -> getMessage();
+    if (isset($_GET['type'])) {
+        $type = $_GET['type'];
     }
 
+    if (isset($type) && $type == 'featured') {
+        try {
+            $sql = "select tbl_featured_products.*,tbl_categories.category_name from tbl_featured_products join tbl_categories on tbl_featured_products.category_id = tbl_categories.id where tbl_featured_products.id = $productId";
+    
+            $query = mysqli_query($connection, $sql);
+    
+            if (mysqli_num_rows($query) == 1) {
+                $product = mysqli_fetch_assoc($query);
+                $type = 'featured';
+            }
+        } catch (Exception $e) {
+            $error = $e -> getMessage();
+        }   
+
+    } else {
+        try {
+            $sql = "select tbl_products.*,tbl_categories.category_name from tbl_products join tbl_categories on tbl_products.category_id = tbl_categories.id where tbl_products.id = $productId";
+    
+            $query = mysqli_query($connection, $sql);
+    
+            if (mysqli_num_rows($query) == 1) {
+                $product = mysqli_fetch_assoc($query);
+            }
+        } catch (Exception $e) {
+            $error = $e -> getMessage();
+        }    
+    }
 ?>
 
 <html>
     <head>
         <title>DK Online Shopping in Nepal</title>
         <link rel="stylesheet" href="Style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -54,7 +70,7 @@
                         <?php }?>
                     <?php } ?>
                     
-                    <br><button><a href="Add.php?token=<?php echo $_SESSION['id']; ?>&pID=<?php echo $product['id']; ?>">Add To Cart</a></button>
+                    <br><button><a href="Add.php?token=<?php echo $_SESSION['id']; ?>&pID=<?php echo $product['id']; ?>&type=<?php if ($type == 'featured') { echo 'featured'; } ?>">Add To Cart</a></button>
                 </div>
             </div>
         </div>

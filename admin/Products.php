@@ -95,6 +95,59 @@
             }
         }
     }
+    
+    if(isset($_POST['submitFeatured'])) {
+        if(updateForm($_POST, 'title')) {
+            $title = $_POST['title'];
+        } else {
+            $error['title'] = 'Enter the title';
+        }
+
+        if(isset($_FILES['image'])) {
+            if($_FILES['image']['error'] == 0) {
+                if($_FILES['image']['size'] <= 10240000) {
+                    $imageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                    if(in_array($_FILES['image']['type'], $imageTypes)) {
+                        $image = uniqid() . '_' . $_FILES['image']['name'];
+                        move_uploaded_file($_FILES['image']['tmp_name'], '../images/product-img/' . $image);
+                    } else {
+                        $error['image'] = 'Upload valid image type';
+                    }
+                } else {
+                    $error['image'] = 'Upload less then 512kb image';
+                }   
+            } else {
+                $error['image'] = 'Upload valid image';
+            }
+        } else {
+            $error['image'] = 'Upload image';
+        }
+
+        if(updateForm($_POST, 'category')) {
+            $category = $_POST['category'];
+        } else {
+            $error['category'] = 'Enter the category';
+        }
+        
+        if(updateForm($_POST, 'price')) {
+            $price = $_POST['price'];
+        } else {
+            $error['price'] = 'Enter the price';
+        }
+        
+        if(count($error) == 0) {
+            try {
+                $sql = "insert into tbl_featured_products(title, image, category_id, price) values('$title', '$image', '$category', '$price');";
+                
+                if(mysqli_query($connection, $sql)) {
+                    header('location: Products.php');
+                }
+                
+            } catch(Exception $e) {
+                $error['database'] = $e -> getMessage(); 
+            }
+        }
+    }
 ?>
 
 <html>
@@ -171,6 +224,40 @@
                     <?php echo displayError($error, 'price'); ?><br>
                     <div class="items btnSubmit">
                         <button type="submit" name="submit" id="submit">Add</button>
+                    </div>
+                    <div class="error">
+                        <?php echo displayError($error, 'database'); ?>
+                        <?php echo displayError($error, 'submit'); ?>
+                    </div>
+                </form><br>
+                <h3>Featured Products</h3><br>
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                    <div class="items title">
+                        <label for="title">title</label><br>
+                        <input type="text" name="title" id="title">
+                    </div>
+                    <?php echo displayError($error, 'title'); ?><br>
+                    <div class="items image">
+                        <label for="image">image</label><br>
+                        <input type="file" name="image" id="image">
+                    </div>
+                    <?php echo displayError($error, 'image'); ?><br>
+                    <div class="items category">
+                        <select name="category" id="category" style="padding: 5px; 10px">
+                            <option value="">Select the product category</option>
+                            <?php foreach($categories as $key => $category) { ?>
+                                <option value="<?php echo $category['id']; ?>"><?php echo $category['category_name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <?php echo displayError($error, 'category'); ?><br>
+                    <div class="items price">
+                        <label for="price">price</label><br>
+                        <input type="number" name="price" id="price">
+                    </div>
+                    <?php echo displayError($error, 'price'); ?><br>
+                    <div class="items btnSubmit">
+                        <button type="submit" name="submitFeatured" id="submit">Add</button>
                     </div>
                     <div class="error">
                         <?php echo displayError($error, 'database'); ?>
