@@ -1,10 +1,32 @@
+<?php
+    session_start();
+
+    require 'Connection.php';
+    require 'Functions.php';
+
+    $cartItems = [];
+    $productPrices = [];
+    
+    if (isset($_SESSION['id'])) {
+        $token = $_SESSION['id'];
+        try {
+            $sql = "select * from tbl_cart_items where user_id = $token";
+            $query = mysqli_query($connection, $sql);
+            if (mysqli_num_rows($query) > 0) {
+                while($cartItem = mysqli_fetch_assoc($query)) {
+                    array_push($cartItems, $cartItem);
+                }
+            }
+        } catch (Exception $e) {
+            die($e -> getMessage());
+        }
+    }
+?>
+
 <html>
     <head>
         <title>DK Online Shopping in Nepal</title>
         <link rel="stylesheet" href="Style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -23,57 +45,36 @@
                             <th>Quantity</th>
                             <th>Subtotal</th>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="cart-info">
-                                    <img src="Images/product-1.jpg">
-                                    <div>
-                                        <h4>Red Printed T-Shirt</h4>
-                                        <small>Price: NRP 50</small>
-                                        <br>
-                                        <a href="">Remove</a>
+                        <?php foreach($cartItems as $key => $cartItem) { ?>
+                            <tr>
+                                <td>
+                                    <div class="cart-info">
+                                        <?php
+                                            $productID = $cartItem['product_id'];
+                                            $sql = "select * from tbl_products where id = $productID";
+                                            $query = mysqli_query($connection, $sql);
+                                            $product = mysqli_fetch_assoc($query);
+                                        ?>
+                                        <img src="images/product-img/<?php echo $product['image']; ?>">
+                                        <div>
+                                            <h4><?php echo $product['title']; ?></h4>
+                                            <small>Price: NRP <?php echo $product['price']; ?></small>
+                                            <br>
+                                            <a href="Remove.php?token=<?php echo $cartItem['id']; ?>">Remove</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td><input type="number" value="1"></td>
-                            <td>NRP 50</td>   
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="cart-info">
-                                    <img src="Images/product-2.jpg">
-                                    <div>
-                                        <p>Red Printed T-Shirt</p>
-                                        <small>Price: NRP 50</small>
-                                        <br>
-                                        <a href="">Remove</a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><input type="number" value="1"></td>
-                            <td>NRP 50</td>   
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="cart-info">
-                                    <img src="Images/product-3.jpg">
-                                    <div>
-                                        <p>Red Printed T-Shirt</p>
-                                        <small>Price: NRP 50</small>
-                                        <br>
-                                        <a href="">Remove</a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><input type="number" value="1"></td>
-                            <td>NRP 50</td>   
-                        </tr>
+                                </td>
+                                <td><input type="number" value="1"></td>
+                                <td>NRP <?php echo $product['price']; ?></td>   
+                                <?php $productPrices[] =  $product['price']; ?>
+                            </tr>
+                        <?php } ?>
                     </table>
                     <div class="total-price">
                         <table style="width: 350px; margin-top: 5px;">
                             <tr>
                                 <td>Subtotal</td>
-                                <td>NRP 150</td>
+                                <td>NRP <?php echo array_sum($productPrices); ?></td>
                             </tr>
                             <tr>
                                 <td>Delivery</td>
@@ -81,12 +82,12 @@
                             </tr>
                             <tr style="border-top: 1.5px solid grey">
                                 <td>Total</td>
-                                <td>NRP 250</td>
+                                <td>NRP <?php echo $total = array_sum($productPrices) + 100; ?></td>
                             </tr>
                         </table>
                     </div>
                     <div id="checkoutBtn">
-                        <button>Checkout</button>
+                        <a href="Checkout.php?tokenCart=<?php echo $total ?>"><button>Checkout</button></a>
                     </div>
                 </div>
             </div>
@@ -117,6 +118,8 @@
                     MenuItems.style.maxHeight = "0px";
                 }
             }
+            console.log(priceArray);
+
         </script>
     </body>
 </html>

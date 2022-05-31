@@ -1,5 +1,16 @@
 <?php
     session_start();
+
+    require 'Connection.php';
+
+    if (isset($_SESSION['id'])) {
+        $token = $_SESSION['id'];
+            $sql = "select * from tbl_cart_items where user_id = $token";
+            $query = mysqli_query($connection, $sql);
+            $cartItemNumbers = mysqli_num_rows($query);
+    } else {
+        $cartItemNumbers = 0;
+    } 
 ?>
 
 <div class="navbar">
@@ -23,7 +34,11 @@
             </ul>
         </nav>
         <a href="My Cart.php" class="myCart"><i class="fas fa-shopping-cart"></i></a>
-        <a href="My Cart.php"><p id="myCartNumber" style="letter-spacing: 1px">0</p></a>
+        <a href="My Cart.php">
+            <p id="myCartNumber" style="letter-spacing: 1px">
+                <?php echo $cartItemNumbers; ?>
+            </p>
+        </a>
         <a href="" class="menu-icon"><i class="fas fa-bars"></i></a>
     </div>
 </div>

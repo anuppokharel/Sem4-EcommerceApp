@@ -31,7 +31,7 @@
             // Checkin for regular expression match.
 
             if(!preg_match ("/^[a-zA-Z0-9]+$/", $username)) {
-                $error['username'] = 'username must only contain characters and space';
+                $error['username'] = 'Username must only contain characters and space';
             }
         } else {
             $error['username'] = 'Enter your username';
@@ -62,7 +62,7 @@
 
         if(count($error) == 0) {
             try {
-                $sql = "insert into tbl_admins(name, email, password) values('$name', '$email','$password');";
+                $sql = "insert into tbl_admins(name, email, username, password) values('$name', '$email', '$username','$password');";
 
                 // Query execution
 

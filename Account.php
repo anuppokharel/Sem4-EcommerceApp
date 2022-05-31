@@ -50,6 +50,7 @@
 
     				$_SESSION['username'] = $username;
                     $_SESSION['name'] = $user['name'];
+                    $_SESSION['id'] = $user['id'];
 	    
                     // If check remember is selected store the data into cookie
 		    

@@ -1,10 +1,11 @@
 <?php
     session_start();
 
+    require 'Session.php';
     require 'Functions.php';
     require 'Connection.php';
 
-    $products = [];
+    $product = [];
     $productId = $_GET['id'];
 
     try {
@@ -13,7 +14,7 @@
         $query = mysqli_query($connection, $sql);
 
         if (mysqli_num_rows($query) == 1) {
-            $products = mysqli_fetch_assoc($query);
+            $product = mysqli_fetch_assoc($query);
         }
     } catch (Exception $e) {
         $error = $e -> getMessage();
@@ -41,11 +42,19 @@
         <div class="product-container">
             <div class="small-container">
                 <div class="col-2">
-                    <img src="images/product-img/<?php echo $products['image']; ?>" height="250px" width="500px" id="productImg" style="object-fit: contain;">
-                    <p id="categoryTag"><?php echo $products['category_name']; ?></p>
-                    <h1><?php echo $products['title']; ?></h1>
-                    <p>NRP <?php echo $products['price']; ?></p>
-                    <button><a href="My Cart.php">Add To Cart</a></button>
+                    <img src="images/product-img/<?php echo $product['image']; ?>" height="250px" width="500px" id="productImg" style="object-fit: contain;">
+                    <p id="categoryTag"><?php echo $product['category_name']; ?></p>
+                    <h1><?php echo $product['title']; ?></h1>
+                    <p>NRP <?php echo $product['price']; ?></p>
+                    <?php if (isset($_GET['msg'])) { ?>
+                        <?php if (isset($_GET) && $_GET['msg'] == 1) { ?>
+                            <span class="success"><b>Added to the cart</b></span>
+                        <?php } else if (isset($_GET) && $_GET['msg'] == 2) { ?>
+                            <span class="error"><b>Already added to the cart</b></span>
+                        <?php }?>
+                    <?php } ?>
+                    
+                    <br><button><a href="Add.php?token=<?php echo $_SESSION['id']; ?>&pID=<?php echo $product['id']; ?>">Add To Cart</a></button>
                 </div>
             </div>
         </div>
