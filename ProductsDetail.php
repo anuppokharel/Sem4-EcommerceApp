@@ -70,7 +70,7 @@
                         <?php }?>
                     <?php } ?>
                     
-                    <br><button><a href="Add.php?token=<?php echo $_SESSION['id']; ?>&pID=<?php echo $product['id']; ?>&type=<?php if ($type == 'featured') { echo 'featured'; } ?>">Add To Cart</a></button>
+                    <br><button><a href="Add.php?token=<?php echo $_SESSION['id']; ?>&pID=<?php echo $product['id']; ?>&type=<?php if (isset($type)) { if($type == 'featured') { echo 'featured'; } } ?>">Add To Cart</a></button>
                 </div>
             </div>
         </div>
