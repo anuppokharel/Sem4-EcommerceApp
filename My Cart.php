@@ -20,6 +20,7 @@
         } catch (Exception $e) {
             die($e -> getMessage());
         }
+        
     }
 ?>
 
@@ -145,5 +146,6 @@
             console.log(priceArray);
 
         </script>
+        <script src="Scripts.js"></script>
     </body>
 </html>

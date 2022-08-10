@@ -1,12 +1,40 @@
 <?php
     require 'Session.php';
+    require 'Connection.php';
+
+    error_reporting(0);
 
     if (isset($_GET['tokenCart']) && !($_GET['tokenCart'] === '')) {
         $total = $_GET['tokenCart'];
     } else {
         header('location: Index.php');
     }
-    
+
+    $cartItems = [];
+    $id = $_SESSION['id'];
+
+        try {
+            $sql = "select * from tbl_cart_items where user_id = $id";
+            $query = mysqli_query($connection, $sql);
+            if (mysqli_num_rows($query) > 0) {
+                while($cartItem = mysqli_fetch_assoc($query)) {
+                    array_push($cartItems, $cartItem);
+                }
+            }
+        } catch (Exception $e) {
+            die($e -> getMessage());
+        }
+
+        foreach($cartItems as $key => $cartItem) {
+            $productID = $cartItem['product_id'];
+            try {
+                $sql = "insert into tbl_cart_items_admin(product_id, user_id) values('$productID','$id')";
+                $query = mysqli_query($connection, $sql);
+                
+            } catch (Exception $e) {
+                die($e -> getMessage());
+            }
+        }
 ?>
 
 <html>
@@ -59,5 +87,6 @@
                 }
             }
         </script>
+        <script src="Script.js"></script>
     </body>
 </html>
